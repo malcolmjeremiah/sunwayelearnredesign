@@ -3,23 +3,2004 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sunway eLearn - Redesigned</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
+    <title>Sunway eLearn - Final Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        /* ============================================
+           CSS RESET & BASE STYLES
+           ============================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #003366;
+            --primary-light: #2E86AB;
+            --primary-dark: #002244;
+            --primary-gradient: linear-gradient(135deg, #003366 0%, #1a5f7a 100%);
+            --secondary: #E28413;
+            --secondary-light: #F4A261;
+            --accent: #A23B72;
+            --success: #2D6A4F;
+            --success-light: #52B788;
+            --warning: #E9C46A;
+            --danger: #E76F51;
+            --text-primary: #1A1A2E;
+            --text-secondary: #4A4A6A;
+            --text-light: #8A8AAA;
+            --bg-white: #FFFFFF;
+            --bg-light: #F5F7FA;
+            --bg-hover: #EEF2F7;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --sidebar-width: 260px;
+            --header-height: 72px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        /* ============================================
+           SCROLLBAR
+           ============================================ */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* ============================================
+           SIDEBAR
+           ============================================ */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-white);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            flex-shrink: 0;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            min-height: var(--header-height);
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: #fff;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 51, 102, 0.3);
+        }
+
+        .brand-text {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .brand-text span {
+            color: var(--secondary);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-item i {
+            width: 20px;
+            font-size: 18px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--primary-gradient);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 51, 102, 0.25);
+        }
+
+        .nav-item.active:hover {
+            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.35);
+            transform: translateX(4px);
+        }
+
+        .nav-item .badge {
+            background: var(--danger);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 1px 8px;
+            border-radius: 20px;
+            margin-left: auto;
+            min-width: 20px;
+            text-align: center;
+            animation: pulse-badge 2s infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .sidebar-footer {
+            padding: 12px 16px 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .sidebar-footer .nav-item {
+            color: var(--text-light);
+        }
+
+        .sidebar-footer .nav-item:hover {
+            color: var(--danger);
+            background: rgba(231, 111, 81, 0.08);
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        .main-content {
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           TOP HEADER
+           ============================================ */
+        .top-header {
+            height: var(--header-height);
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            gap: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 20px;
+            color: var(--text-secondary);
+            padding: 8px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .menu-toggle:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+
+        .page-title span {
+            color: var(--primary-light);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-search {
+            display: flex;
+            align-items: center;
+            background: var(--bg-light);
+            border-radius: 50px;
+            padding: 0 16px;
+            border: 2px solid transparent;
+            transition: var(--transition);
+            min-width: 240px;
+        }
+
+        .header-search:focus-within {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(46, 134, 171, 0.12);
+            background: var(--bg-white);
+        }
+
+        .header-search i {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .header-search input {
+            border: none;
+            background: transparent;
+            padding: 10px 12px;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        .header-search input::placeholder {
+            color: var(--text-light);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            position: relative;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+            transform: scale(1.05);
+        }
+
+        .icon-btn .badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: var(--danger);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse-badge 2s infinite;
+        }
+
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .user-avatar:hover {
+            border-color: var(--primary-light);
+            transform: scale(1.05);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ============================================
+           PAGE CONTENT
+           ============================================ */
+        .page-content {
+            flex: 1;
+            padding: 32px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-header {
+            margin-bottom: 28px;
+        }
+
+        .page-header h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-top: 4px;
+        }
+
+        /* ============================================
+           WELCOME BANNER
+           ============================================ */
+        .welcome-banner {
+            background: var(--primary-gradient);
+            border-radius: var(--radius-xl);
+            padding: 32px 40px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .welcome-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+        }
+
+        .welcome-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-text h2 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .welcome-text p {
+            opacity: 0.85;
+            font-size: 15px;
+        }
+
+        .welcome-date {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ============================================
+           STATS GRID
+           ============================================ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .stat-card:active {
+            transform: scale(0.97);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #fff;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .stat-card:nth-child(1) .stat-icon {
+            background: var(--primary-gradient);
+        }
+        .stat-card:nth-child(2) .stat-icon {
+            background: linear-gradient(135deg, #E28413, #F4A261);
+        }
+        .stat-card:nth-child(3) .stat-icon {
+            background: linear-gradient(135deg, #A23B72, #C77DFF);
+        }
+        .stat-card:nth-child(4) .stat-icon {
+            background: linear-gradient(135deg, #2D6A4F, #52B788);
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           DASHBOARD GRID
+           ============================================ */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .dashboard-left,
+        .dashboard-right {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* ============================================
+           CARDS
+           ============================================ */
+        .card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header h3 i {
+            color: var(--primary-light);
+        }
+
+        .card-link {
+            font-size: 13px;
+            color: var(--primary-light);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .card-link:hover {
+            color: var(--primary);
+            background: var(--bg-hover);
+            text-decoration: none;
+        }
+
+        .card-body {
+            padding: 20px 24px;
+        }
+
+        /* ============================================
+           DEADLINE LIST
+           ============================================ */
+        .deadline-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .deadline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--border-color);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .deadline-item:hover {
+            background: var(--bg-hover);
+            transform: translateX(4px);
+        }
+
+        .deadline-item.urgent {
+            border-left-color: var(--danger);
+            background: rgba(231, 111, 81, 0.06);
+        }
+
+        .deadline-item.warning {
+            border-left-color: var(--secondary);
+            background: rgba(226, 132, 19, 0.06);
+        }
+
+        .deadline-item .btn-sm {
+            padding: 4px 12px;
+            font-size: 12px;
+        }
+
+        .deadline-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .deadline-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .deadline-course {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .deadline-date {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        .deadline-label {
+            font-size: 11px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .deadline-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .deadline-item.urgent .deadline-value {
+            color: var(--danger);
+        }
+
+        .deadline-item.warning .deadline-value {
+            color: var(--secondary);
+        }
+
+        /* ============================================
+           ANNOUNCEMENT LIST
+           ============================================ */
+        .announcement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .announcement-item {
+            display: flex;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .announcement-item:hover {
+            padding-left: 8px;
+        }
+
+        .announcement-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .announcement-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-hover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-light);
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .announcement-item:hover .announcement-icon {
+            background: var(--primary-light);
+            color: #fff;
+        }
+
+        .announcement-content {
+            flex: 1;
+        }
+
+        .announcement-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .announcement-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            display: block;
+            margin-top: 2px;
+        }
+
+        .announcement-time {
+            font-size: 12px;
+            color: var(--text-light);
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* ============================================
+           COURSE QUICK LIST
+           ============================================ */
+        .course-quick-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .course-quick-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-light);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .course-quick-item:hover {
+            background: var(--bg-hover);
+            transform: translateX(4px);
+        }
+
+        .course-color {
+            width: 4px;
+            height: 36px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .course-quick-item:hover .course-color {
+            height: 44px;
+        }
+
+        .course-quick-info {
+            flex: 1;
+        }
+
+        .course-quick-code {
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .course-quick-name {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .course-quick-badge {
+            background: var(--primary-gradient);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+        }
+
+        /* ============================================
+           ACTIVITY LIST
+           ============================================ */
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .activity-item:hover {
+            padding-left: 8px;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .activity-icon {
+            font-size: 18px;
+            margin-top: 2px;
+            transition: var(--transition);
+        }
+
+        .activity-item:hover .activity-icon {
+            transform: scale(1.2);
+        }
+
+        .activity-text {
+            font-size: 14px;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .activity-time {
+            font-size: 12px;
+            color: var(--text-light);
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* ============================================
+           COURSES PAGE
+           ============================================ */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .course-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .course-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-6px);
+        }
+
+        .course-card-header {
+            padding: 20px 24px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+        }
+
+        .course-code {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .course-semester {
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 12px;
+            border-radius: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .course-card-body {
+            padding: 20px 24px 24px;
+        }
+
+        .course-card-body h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .course-card-body p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+        }
+
+        .course-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .course-progress span {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--bg-hover);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-gradient);
+            border-radius: 10px;
+            transition: width 1s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .progress-text {
+            font-weight: 600;
+            font-size: 13px !important;
+            color: var(--text-primary) !important;
+        }
+
+        .course-card-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 51, 102, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+
+        .btn-secondary {
+            background: var(--bg-hover);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #2D6A4F, #52B788);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(45, 106, 79, 0.25);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 106, 79, 0.35);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #E76F51, #F4A261);
+            color: #fff;
+        }
+
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 13px;
+        }
+
+        .course-new-badge {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* ============================================
+           NOTIFICATIONS PAGE
+           ============================================ */
+        .notification-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            background: var(--bg-hover);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-gradient);
+            color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 51, 102, 0.2);
+        }
+
+        .notification-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .notification-item:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(4px);
+        }
+
+        .notification-item.unread {
+            border-left: 4px solid var(--primary-light);
+            background: rgba(46, 134, 171, 0.03);
+        }
+
+        .notification-item.unread::before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 8px;
+            height: 8px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+        }
+
+        .notification-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            flex-shrink: 0;
+            font-size: 16px;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .notification-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .notification-time {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 4px;
+            display: block;
+        }
+
+        .notification-dismiss {
+            color: var(--text-light);
+            padding: 4px;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .notification-dismiss:hover {
+            color: var(--danger);
+            transform: scale(1.2);
+        }
+
+        /* ============================================
+           MESSAGES PAGE
+           ============================================ */
+        .messages-container {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 24px;
+            min-height: 500px;
+        }
+
+        .messages-list {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .message-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .message-item:hover {
+            background: var(--bg-hover);
+            transform: translateX(4px);
+        }
+
+        .message-item.unread {
+            background: rgba(46, 134, 171, 0.04);
+        }
+
+        .message-item.unread .message-sender {
+            font-weight: 700;
+        }
+
+        .message-item img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 2px solid var(--border-color);
+        }
+
+        .message-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .message-sender {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .message-preview {
+            font-size: 13px;
+            color: var(--text-secondary);
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: var(--text-light);
+            display: block;
+            margin-top: 2px;
+        }
+
+        .message-view {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+            transition: var(--transition);
+        }
+
+        .message-view.active {
+            padding: 24px;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        .message-view-placeholder {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 40px;
+        }
+
+        .message-view-placeholder i {
+            font-size: 56px;
+            color: var(--text-light);
+            margin-bottom: 16px;
+            display: block;
+            opacity: 0.5;
+        }
+
+        .message-view-placeholder h3 {
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .message-view-placeholder p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .message-conversation {
+            width: 100%;
+        }
+
+        .message-conversation .msg-bubble {
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+            max-width: 80%;
+        }
+
+        .message-conversation .msg-bubble.sent {
+            background: var(--primary-gradient);
+            color: #fff;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-conversation .msg-bubble.received {
+            background: var(--bg-light);
+            color: var(--text-primary);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-conversation .msg-bubble .msg-time {
+            font-size: 11px;
+            opacity: 0.7;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .message-input-area {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .message-input-area input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .message-input-area input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(46, 134, 171, 0.12);
+        }
+
+        /* ============================================
+           CALENDAR PAGE
+           ============================================ */
+        .calendar-container {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .calendar-nav {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .calendar-nav:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+            transform: scale(1.05);
+        }
+
+        .calendar-month {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 24px;
+        }
+
+        .calendar-weekday {
+            text-align: center;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding: 8px;
+        }
+
+        .calendar-day {
+            text-align: center;
+            padding: 10px 4px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .calendar-day.empty {
+            color: var(--text-light);
+            cursor: default;
+        }
+
+        .calendar-day:hover:not(.empty) {
+            background: var(--bg-hover);
+            transform: scale(1.05);
+        }
+
+        .calendar-day.today {
+            background: var(--primary-gradient);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 51, 102, 0.25);
+        }
+
+        .calendar-day.has-event {
+            position: relative;
+        }
+
+        .calendar-day.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--secondary);
+            border-radius: 50%;
+        }
+
+        .calendar-day.today.has-event::after {
+            background: #fff;
+        }
+
+        .calendar-events h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .calendar-event-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .calendar-event-item:hover {
+            padding-left: 8px;
+        }
+
+        .calendar-event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-color {
+            width: 4px;
+            height: 30px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .calendar-event-item:hover .event-color {
+            height: 36px;
+        }
+
+        .event-info {
+            flex: 1;
+        }
+
+        .event-title {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .event-date {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           PROFILE PAGE
+           ============================================ */
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .profile-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+        }
+
+        .profile-avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--border-color);
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .profile-avatar:hover {
+            border-color: var(--primary-light);
+            transform: scale(1.02);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-field {
+            margin-bottom: 16px;
+        }
+
+        .profile-field label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .profile-field span {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .profile-settings {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* ============================================
+           TOGGLE SWITCH
+           ============================================ */
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 28px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: var(--border-color);
+            border-radius: 28px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background: #fff;
+            border-radius: 50%;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toggle-switch input:checked+.toggle-slider {
+            background: var(--primary-gradient);
+        }
+
+        .toggle-switch input:checked+.toggle-slider::before {
+            transform: translateX(22px);
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-label {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .setting-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .setting-select {
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: var(--bg-white);
+            font-size: 14px;
+            color: var(--text-primary);
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .setting-select:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(46, 134, 171, 0.12);
+        }
+
+        /* ============================================
+           TOAST
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-xl);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border: 1px solid var(--border-color);
+            transform: translateY(120px);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 9999;
+            max-width: 420px;
+            min-width: 300px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .toast-icon.success {
+            color: var(--success);
+        }
+        .toast-icon.error {
+            color: var(--danger);
+        }
+        .toast-icon.info {
+            color: var(--primary-light);
+        }
+        .toast-icon.warning {
+            color: var(--secondary);
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .toast-message {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .toast-close {
+            color: var(--text-light);
+            padding: 4px;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .toast-close:hover {
+            color: var(--text-primary);
+            transform: scale(1.2);
+        }
+
+        /* ============================================
+           SIDEBAR OVERLAY
+           ============================================ */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            backdrop-filter: blur(4px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                width: 280px;
+                box-shadow: var(--shadow-lg);
+                z-index: 1001;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .top-header {
+                padding: 0 20px;
+            }
+            .page-content {
+                padding: 20px;
+            }
+            .header-search {
+                min-width: 160px;
+            }
+            .messages-container {
+                grid-template-columns: 1fr;
+            }
+            .message-view {
+                min-height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-header {
+                padding: 0 16px;
+                gap: 12px;
+                flex-wrap: wrap;
+                height: auto;
+                padding: 12px 16px;
+            }
+            .header-left {
+                gap: 10px;
+            }
+            .page-title {
+                font-size: 18px;
+            }
+            .header-search {
+                min-width: 140px;
+            }
+            .header-search input {
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+            .header-right {
+                gap: 8px;
+            }
+            .welcome-banner {
+                padding: 24px;
+                flex-direction: column;
+                text-align: center;
+            }
+            .welcome-text h2 {
+                font-size: 20px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            .profile-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .notification-filters {
+                gap: 6px;
+            }
+            .filter-btn {
+                padding: 6px 14px;
+                font-size: 13px;
+            }
+            .calendar-container {
+                padding: 16px;
+                overflow-x: auto;
+            }
+            .calendar-grid {
+                min-width: 480px;
+            }
+            .toast {
+                bottom: 16px;
+                right: 16px;
+                left: 16px;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-content {
+                padding: 12px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .stat-card {
+                padding: 14px 16px;
+            }
+            .stat-value {
+                font-size: 20px;
+            }
+            .header-search {
+                display: none;
+            }
+            .course-card-header {
+                padding: 16px 18px;
+            }
+            .course-card-body {
+                padding: 16px 18px 18px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- ====== SIDEBAR NAVIGATION ====== -->
+    <!-- ===== SIDEBAR ===== -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
-            <div class="brand-icon">
-                <img src="https://www.sunway.edu.my/wp-content/uploads/2022/05/Sunway-Logo-2021-02.png" alt="Sunway Logo" />
-            </div>
-            <span class="brand-text">eLearn</span>
+            <div class="brand-icon">📚</div>
+            <span class="brand-text">e<span>Learn</span></span>
         </div>
 
         <nav class="sidebar-nav">
@@ -59,13 +2040,16 @@
         </div>
     </aside>
 
-    <!-- ====== MAIN CONTENT ====== -->
-    <main class="main-content" id="mainContent">
+    <!-- ===== SIDEBAR OVERLAY ===== -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <!-- ====== TOP HEADER ====== -->
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+
+        <!-- ===== TOP HEADER ===== -->
         <header class="top-header">
             <div class="header-left">
-                <button class="menu-toggle" id="menuToggle" aria-label="Toggle sidebar">
+                <button class="menu-toggle" id="menuToggle">
                     <i class="fas fa-bars"></i>
                 </button>
                 <h1 class="page-title" id="pageTitle">Dashboard</h1>
@@ -73,31 +2057,30 @@
             <div class="header-right">
                 <div class="header-search">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search courses, assignments..." />
+                    <input type="text" id="searchInput" placeholder="Search courses, assignments..." />
                 </div>
                 <div class="header-actions">
-                    <button class="icon-btn" aria-label="Notifications">
+                    <button class="icon-btn" id="notifBtn" aria-label="Notifications">
                         <i class="fas fa-bell"></i>
                         <span class="badge">3</span>
                     </button>
-                    <button class="icon-btn" aria-label="Messages">
+                    <button class="icon-btn" id="msgBtn" aria-label="Messages">
                         <i class="fas fa-envelope"></i>
                         <span class="badge">2</span>
                     </button>
                     <div class="user-avatar">
-                        <img src="https://ui-avatars.com/api/?name=Student+User&background=003366&color=fff&size=40" alt="User Avatar" />
+                        <img src="https://ui-avatars.com/api/?name=Student+User&background=003366&color=fff&size=40" alt="User" />
                     </div>
                 </div>
             </div>
         </header>
 
-        <!-- ====== PAGE CONTENT ====== -->
+        <!-- ===== PAGE CONTENT ===== -->
         <section class="page-content">
 
-            <!-- ====== DASHBOARD PAGE ====== -->
+            <!-- ===== DASHBOARD ===== -->
             <div id="page-dashboard" class="page active">
 
-                <!-- Welcome Banner -->
                 <div class="welcome-banner">
                     <div class="welcome-text">
                         <h2>Welcome back, Student! 👋</h2>
@@ -109,39 +2092,30 @@
                     </div>
                 </div>
 
-                <!-- Quick Stats -->
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
+                    <div class="stat-card" onclick="showToast('Courses', 'You have 5 active courses this semester', '📖')">
+                        <div class="stat-icon"><i class="fas fa-book"></i></div>
                         <div class="stat-info">
                             <span class="stat-value">5</span>
                             <span class="stat-label">Active Courses</span>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
+                    <div class="stat-card" onclick="showToast('Assignments', 'You have 3 pending assignments to complete', '📝')">
+                        <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
                         <div class="stat-info">
                             <span class="stat-value">3</span>
                             <span class="stat-label">Pending Assignments</span>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
+                    <div class="stat-card" onclick="showToast('Deadlines', '2 upcoming deadlines this week', '⏰')">
+                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
                         <div class="stat-info">
                             <span class="stat-value">2</span>
                             <span class="stat-label">Upcoming Deadlines</span>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
+                    <div class="stat-card" onclick="showToast('Messages', 'You have 4 unread messages', '💬')">
+                        <div class="stat-icon"><i class="fas fa-envelope"></i></div>
                         <div class="stat-info">
                             <span class="stat-value">4</span>
                             <span class="stat-label">Unread Messages</span>
@@ -149,17 +2123,12 @@
                     </div>
                 </div>
 
-                <!-- Two Column Layout -->
                 <div class="dashboard-grid">
-
-                    <!-- Left Column -->
                     <div class="dashboard-left">
-
-                        <!-- Upcoming Deadlines -->
                         <div class="card">
                             <div class="card-header">
                                 <h3><i class="fas fa-clock"></i> Upcoming Deadlines</h3>
-                                <a href="#" class="card-link">View All</a>
+                                <a href="#" class="card-link" data-page="calendar">View All</a>
                             </div>
                             <div class="card-body">
                                 <div class="deadline-list">
@@ -197,28 +2166,23 @@
                             </div>
                         </div>
 
-                        <!-- Recent Announcements -->
                         <div class="card">
                             <div class="card-header">
                                 <h3><i class="fas fa-bullhorn"></i> Recent Announcements</h3>
-                                <a href="#" class="card-link">View All</a>
+                                <a href="#" class="card-link" data-page="notifications">View All</a>
                             </div>
                             <div class="card-body">
                                 <div class="announcement-list">
-                                    <div class="announcement-item">
-                                        <div class="announcement-icon">
-                                            <i class="fas fa-file-alt"></i>
-                                        </div>
+                                    <div class="announcement-item" onclick="showToast('Announcement', 'Assignment 3 brief is now available for download', '📄')">
+                                        <div class="announcement-icon"><i class="fas fa-file-alt"></i></div>
                                         <div class="announcement-content">
                                             <span class="announcement-title">Assignment 3 Brief Posted</span>
                                             <span class="announcement-desc">PRG3014 - New assignment brief available for download</span>
                                             <span class="announcement-time">2 hours ago</span>
                                         </div>
                                     </div>
-                                    <div class="announcement-item">
-                                        <div class="announcement-icon">
-                                            <i class="fas fa-calendar-check"></i>
-                                        </div>
+                                    <div class="announcement-item" onclick="showToast('Announcement', 'Mid-semester break from 10-14 August', '📅')">
+                                        <div class="announcement-icon"><i class="fas fa-calendar-check"></i></div>
                                         <div class="announcement-content">
                                             <span class="announcement-title">Mid-Semester Break</span>
                                             <span class="announcement-desc">No classes from 10-14 August. Enjoy your break!</span>
@@ -228,13 +2192,9 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
-                    <!-- Right Column -->
                     <div class="dashboard-right">
-
-                        <!-- Quick Access Courses -->
                         <div class="card">
                             <div class="card-header">
                                 <h3><i class="fas fa-book-open"></i> Quick Access</h3>
@@ -242,7 +2202,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="course-quick-list">
-                                    <div class="course-quick-item">
+                                    <div class="course-quick-item" onclick="showToast('Course', 'Opening PRG3014', '📚')">
                                         <div class="course-color" style="background:#2E86AB;"></div>
                                         <div class="course-quick-info">
                                             <span class="course-quick-code">PRG3014</span>
@@ -250,7 +2210,7 @@
                                         </div>
                                         <span class="course-quick-badge">3 new</span>
                                     </div>
-                                    <div class="course-quick-item">
+                                    <div class="course-quick-item" onclick="showToast('Course', 'Opening ECO1014', '📚')">
                                         <div class="course-color" style="background:#E28413;"></div>
                                         <div class="course-quick-info">
                                             <span class="course-quick-code">ECO1014</span>
@@ -258,7 +2218,7 @@
                                         </div>
                                         <span class="course-quick-badge">1 new</span>
                                     </div>
-                                    <div class="course-quick-item">
+                                    <div class="course-quick-item" onclick="showToast('Course', 'Opening MKT2014', '📚')">
                                         <div class="course-color" style="background:#6B4C3A;"></div>
                                         <div class="course-quick-info">
                                             <span class="course-quick-code">MKT2014</span>
@@ -270,7 +2230,6 @@
                             </div>
                         </div>
 
-                        <!-- Recent Activity -->
                         <div class="card">
                             <div class="card-header">
                                 <h3><i class="fas fa-history"></i> Recent Activity</h3>
@@ -301,18 +2260,16 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
 
-            <!-- ====== COURSES PAGE ====== -->
+            <!-- ===== COURSES ===== -->
             <div id="page-courses" class="page">
                 <div class="page-header">
                     <h2>My Courses</h2>
                     <p>Manage and access all your enrolled courses</p>
                 </div>
-
                 <div class="courses-grid">
                     <div class="course-card">
                         <div class="course-card-header" style="background: linear-gradient(135deg, #2E86AB, #1a5f7a);">
@@ -324,18 +2281,15 @@
                             <p>Dr. Sarah Chen</p>
                             <div class="course-progress">
                                 <span>Progress</span>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 75%;"></div>
-                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width:75%;"></div></div>
                                 <span class="progress-text">75%</span>
                             </div>
                             <div class="course-card-actions">
-                                <a href="#" class="btn btn-primary btn-sm">View Course</a>
+                                <button class="btn btn-primary btn-sm" onclick="showToast('Course', 'Opening PRG3014 - UI/UX Design', '📖')">View Course</button>
                                 <span class="course-new-badge">3 new</span>
                             </div>
                         </div>
                     </div>
-
                     <div class="course-card">
                         <div class="course-card-header" style="background: linear-gradient(135deg, #E28413, #b36a0f);">
                             <span class="course-code">ECO1014</span>
@@ -346,18 +2300,15 @@
                             <p>Prof. Ahmad Rizal</p>
                             <div class="course-progress">
                                 <span>Progress</span>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 60%;"></div>
-                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width:60%;"></div></div>
                                 <span class="progress-text">60%</span>
                             </div>
                             <div class="course-card-actions">
-                                <a href="#" class="btn btn-primary btn-sm">View Course</a>
+                                <button class="btn btn-primary btn-sm" onclick="showToast('Course', 'Opening ECO1014 - Economics', '📖')">View Course</button>
                                 <span class="course-new-badge">1 new</span>
                             </div>
                         </div>
                     </div>
-
                     <div class="course-card">
                         <div class="course-card-header" style="background: linear-gradient(135deg, #6B4C3A, #4d3527);">
                             <span class="course-code">MKT2014</span>
@@ -368,18 +2319,15 @@
                             <p>Ms. Lisa Tan</p>
                             <div class="course-progress">
                                 <span>Progress</span>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 45%;"></div>
-                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width:45%;"></div></div>
                                 <span class="progress-text">45%</span>
                             </div>
                             <div class="course-card-actions">
-                                <a href="#" class="btn btn-primary btn-sm">View Course</a>
+                                <button class="btn btn-primary btn-sm" onclick="showToast('Course', 'Opening MKT2014 - Marketing', '📖')">View Course</button>
                                 <span class="course-new-badge">2 new</span>
                             </div>
                         </div>
                     </div>
-
                     <div class="course-card">
                         <div class="course-card-header" style="background: linear-gradient(135deg, #A23B72, #7a2a56);">
                             <span class="course-code">COM2014</span>
@@ -390,18 +2338,15 @@
                             <p>Dr. Wong Mei Ling</p>
                             <div class="course-progress">
                                 <span>Progress</span>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 30%;"></div>
-                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width:30%;"></div></div>
                                 <span class="progress-text">30%</span>
                             </div>
                             <div class="course-card-actions">
-                                <a href="#" class="btn btn-primary btn-sm">View Course</a>
+                                <button class="btn btn-primary btn-sm" onclick="showToast('Course', 'Opening COM2014 - Communication', '📖')">View Course</button>
                                 <span class="course-new-badge">0 new</span>
                             </div>
                         </div>
                     </div>
-
                     <div class="course-card">
                         <div class="course-card-header" style="background: linear-gradient(135deg, #2D6A4F, #1a4a36);">
                             <span class="course-code">STA2014</span>
@@ -412,13 +2357,11 @@
                             <p>Mr. Khoo Boon Chin</p>
                             <div class="course-progress">
                                 <span>Progress</span>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 50%;"></div>
-                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width:50%;"></div></div>
                                 <span class="progress-text">50%</span>
                             </div>
                             <div class="course-card-actions">
-                                <a href="#" class="btn btn-primary btn-sm">View Course</a>
+                                <button class="btn btn-primary btn-sm" onclick="showToast('Course', 'Opening STA2014 - Statistics', '📖')">View Course</button>
                                 <span class="course-new-badge">0 new</span>
                             </div>
                         </div>
@@ -426,119 +2369,102 @@
                 </div>
             </div>
 
-            <!-- ====== NOTIFICATIONS PAGE ====== -->
+            <!-- ===== NOTIFICATIONS ===== -->
             <div id="page-notifications" class="page">
                 <div class="page-header">
                     <h2>Notifications</h2>
                     <p>Stay updated with your latest alerts</p>
                 </div>
-
                 <div class="notification-filters">
-                    <button class="filter-btn active">All</button>
-                    <button class="filter-btn">Unread</button>
-                    <button class="filter-btn">Assignments</button>
-                    <button class="filter-btn">Announcements</button>
-                    <button class="filter-btn">Grades</button>
+                    <button class="filter-btn active" onclick="filterNotifications('all', this)">All</button>
+                    <button class="filter-btn" onclick="filterNotifications('unread', this)">Unread</button>
+                    <button class="filter-btn" onclick="filterNotifications('assignments', this)">Assignments</button>
+                    <button class="filter-btn" onclick="filterNotifications('announcements', this)">Announcements</button>
+                    <button class="filter-btn" onclick="filterNotifications('grades', this)">Grades</button>
                 </div>
-
-                <div class="notification-list">
-                    <div class="notification-item unread">
-                        <div class="notification-icon" style="background:#2E86AB;">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
+                <div class="notification-list" id="notificationList">
+                    <div class="notification-item unread" data-type="assignments">
+                        <div class="notification-icon" style="background:#2E86AB;"><i class="fas fa-file-alt"></i></div>
                         <div class="notification-content">
                             <span class="notification-title">New Assignment Posted</span>
                             <p class="notification-desc">PRG3014 - Assignment 3 has been released. Due 7 August 2026.</p>
                             <span class="notification-time">2 hours ago</span>
                         </div>
-                        <button class="notification-dismiss"><i class="fas fa-times"></i></button>
+                        <button class="notification-dismiss" onclick="dismissNotification(this)"><i class="fas fa-times"></i></button>
                     </div>
-
-                    <div class="notification-item unread">
-                        <div class="notification-icon" style="background:#E28413;">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
+                    <div class="notification-item unread" data-type="announcements">
+                        <div class="notification-icon" style="background:#E28413;"><i class="fas fa-calendar-check"></i></div>
                         <div class="notification-content">
                             <span class="notification-title">Mid-Semester Break</span>
                             <p class="notification-desc">University will be closed from 10-14 August for mid-semester break.</p>
                             <span class="notification-time">1 day ago</span>
                         </div>
-                        <button class="notification-dismiss"><i class="fas fa-times"></i></button>
+                        <button class="notification-dismiss" onclick="dismissNotification(this)"><i class="fas fa-times"></i></button>
                     </div>
-
-                    <div class="notification-item">
-                        <div class="notification-icon" style="background:#6B4C3A;">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
+                    <div class="notification-item" data-type="grades">
+                        <div class="notification-icon" style="background:#6B4C3A;"><i class="fas fa-graduation-cap"></i></div>
                         <div class="notification-content">
                             <span class="notification-title">Grade Released</span>
                             <p class="notification-desc">PRG3014 - Assignment 2 grade: 85% (A). Feedback available.</p>
                             <span class="notification-time">3 days ago</span>
                         </div>
-                        <button class="notification-dismiss"><i class="fas fa-times"></i></button>
+                        <button class="notification-dismiss" onclick="dismissNotification(this)"><i class="fas fa-times"></i></button>
                     </div>
-
-                    <div class="notification-item">
-                        <div class="notification-icon" style="background:#A23B72;">
-                            <i class="fas fa-comment"></i>
-                        </div>
+                    <div class="notification-item" data-type="announcements">
+                        <div class="notification-icon" style="background:#A23B72;"><i class="fas fa-comment"></i></div>
                         <div class="notification-content">
                             <span class="notification-title">Discussion Reply</span>
                             <p class="notification-desc">Dr. Chen replied to your question in ECO1014 discussion forum.</p>
                             <span class="notification-time">4 days ago</span>
                         </div>
-                        <button class="notification-dismiss"><i class="fas fa-times"></i></button>
+                        <button class="notification-dismiss" onclick="dismissNotification(this)"><i class="fas fa-times"></i></button>
                     </div>
-
-                    <div class="notification-item">
-                        <div class="notification-icon" style="background:#2D6A4F;">
-                            <i class="fas fa-clock"></i>
-                        </div>
+                    <div class="notification-item" data-type="assignments">
+                        <div class="notification-icon" style="background:#2D6A4F;"><i class="fas fa-clock"></i></div>
                         <div class="notification-content">
                             <span class="notification-title">Upcoming Deadline</span>
                             <p class="notification-desc">ECO1014 - Research Paper due in 3 days. Don't forget to submit!</p>
                             <span class="notification-time">5 days ago</span>
                         </div>
-                        <button class="notification-dismiss"><i class="fas fa-times"></i></button>
+                        <button class="notification-dismiss" onclick="dismissNotification(this)"><i class="fas fa-times"></i></button>
                     </div>
                 </div>
             </div>
 
-            <!-- ====== MESSAGES PAGE ====== -->
+            <!-- ===== MESSAGES ===== -->
             <div id="page-messages" class="page">
                 <div class="page-header">
                     <h2>Messages</h2>
                     <p>Communicate with your lecturers and peers</p>
                 </div>
-
                 <div class="messages-container">
                     <div class="messages-list">
-                        <div class="message-item unread">
-                            <img src="https://ui-avatars.com/api/?name=Dr+Sarah+Chen&background=2E86AB&color=fff&size=40" alt="Dr. Sarah Chen" />
+                        <div class="message-item unread" onclick="openConversation('Dr. Sarah Chen', this)">
+                            <img src="https://ui-avatars.com/api/?name=Dr+Sarah+Chen&background=2E86AB&color=fff&size=40" alt="Dr. Chen" />
                             <div class="message-info">
                                 <span class="message-sender">Dr. Sarah Chen</span>
                                 <span class="message-preview">PRG3014 - Assignment 3 feedback...</span>
                                 <span class="message-time">2 hours ago</span>
                             </div>
                         </div>
-                        <div class="message-item unread">
-                            <img src="https://ui-avatars.com/api/?name=Prof+Ahmad+Rizal&background=E28413&color=fff&size=40" alt="Prof. Ahmad Rizal" />
+                        <div class="message-item unread" onclick="openConversation('Prof. Ahmad Rizal', this)">
+                            <img src="https://ui-avatars.com/api/?name=Prof+Ahmad+Rizal&background=E28413&color=fff&size=40" alt="Prof. Rizal" />
                             <div class="message-info">
                                 <span class="message-sender">Prof. Ahmad Rizal</span>
                                 <span class="message-preview">ECO1014 - Regarding your question...</span>
                                 <span class="message-time">1 day ago</span>
                             </div>
                         </div>
-                        <div class="message-item">
-                            <img src="https://ui-avatars.com/api/?name=Lisa+Tan&background=6B4C3A&color=fff&size=40" alt="Ms. Lisa Tan" />
+                        <div class="message-item" onclick="openConversation('Ms. Lisa Tan', this)">
+                            <img src="https://ui-avatars.com/api/?name=Lisa+Tan&background=6B4C3A&color=fff&size=40" alt="Ms. Tan" />
                             <div class="message-info">
                                 <span class="message-sender">Ms. Lisa Tan</span>
                                 <span class="message-preview">MKT2014 - Group project meeting...</span>
                                 <span class="message-time">3 days ago</span>
                             </div>
                         </div>
-                        <div class="message-item">
-                            <img src="https://ui-avatars.com/api/?name=Group+Chat&background=A23B72&color=fff&size=40" alt="Group Chat" />
+                        <div class="message-item" onclick="openConversation('PRG3014 Group Chat', this)">
+                            <img src="https://ui-avatars.com/api/?name=Group+Chat&background=A23B72&color=fff&size=40" alt="Group" />
                             <div class="message-info">
                                 <span class="message-sender">PRG3014 Discussion Group</span>
                                 <span class="message-preview">[8 new messages] Any idea about...</span>
@@ -546,7 +2472,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="message-view">
+                    <div class="message-view" id="messageView">
                         <div class="message-view-placeholder">
                             <i class="fas fa-envelope-open-text"></i>
                             <h3>Select a conversation</h3>
@@ -556,83 +2482,38 @@
                 </div>
             </div>
 
-            <!-- ====== CALENDAR PAGE ====== -->
+            <!-- ===== CALENDAR ===== -->
             <div id="page-calendar" class="page">
                 <div class="page-header">
                     <h2>Calendar</h2>
                     <p>View your upcoming events and deadlines</p>
                 </div>
-
                 <div class="calendar-container">
                     <div class="calendar-header">
-                        <button class="calendar-nav"><i class="fas fa-chevron-left"></i></button>
-                        <span class="calendar-month">August 2026</span>
-                        <button class="calendar-nav"><i class="fas fa-chevron-right"></i></button>
+                        <button class="calendar-nav" onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span class="calendar-month" id="calendarMonth">August 2026</span>
+                        <button class="calendar-nav" onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
                     </div>
-
-                    <div class="calendar-grid">
-                        <div class="calendar-weekday">Mon</div>
-                        <div class="calendar-weekday">Tue</div>
-                        <div class="calendar-weekday">Wed</div>
-                        <div class="calendar-weekday">Thu</div>
-                        <div class="calendar-weekday">Fri</div>
-                        <div class="calendar-weekday">Sat</div>
-                        <div class="calendar-weekday">Sun</div>
-
-                        <div class="calendar-day empty"></div>
-                        <div class="calendar-day empty"></div>
-                        <div class="calendar-day empty"></div>
-                        <div class="calendar-day empty"></div>
-                        <div class="calendar-day">1</div>
-                        <div class="calendar-day">2</div>
-                        <div class="calendar-day">3</div>
-                        <div class="calendar-day">4</div>
-                        <div class="calendar-day">5</div>
-                        <div class="calendar-day">6</div>
-                        <div class="calendar-day">7</div>
-                        <div class="calendar-day">8</div>
-                        <div class="calendar-day">9</div>
-                        <div class="calendar-day">10</div>
-                        <div class="calendar-day">11</div>
-                        <div class="calendar-day">12</div>
-                        <div class="calendar-day">13</div>
-                        <div class="calendar-day">14</div>
-                        <div class="calendar-day">15</div>
-                        <div class="calendar-day">16</div>
-                        <div class="calendar-day">17</div>
-                        <div class="calendar-day">18</div>
-                        <div class="calendar-day">19</div>
-                        <div class="calendar-day">20</div>
-                        <div class="calendar-day">21</div>
-                        <div class="calendar-day">22</div>
-                        <div class="calendar-day">23</div>
-                        <div class="calendar-day">24</div>
-                        <div class="calendar-day">25</div>
-                        <div class="calendar-day">26</div>
-                        <div class="calendar-day">27</div>
-                        <div class="calendar-day">28</div>
-                        <div class="calendar-day">29</div>
-                        <div class="calendar-day">30</div>
-                        <div class="calendar-day">31</div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Generated by JS -->
                     </div>
-
                     <div class="calendar-events">
                         <h4>Upcoming Events</h4>
-                        <div class="calendar-event-item">
+                        <div class="calendar-event-item" onclick="showToast('Event', 'PRG3014 Assignment Due 7 Aug 2026', '📝')">
                             <div class="event-color" style="background:#E28413;"></div>
                             <div class="event-info">
                                 <span class="event-title">PRG3014 Assignment Due</span>
                                 <span class="event-date">7 August 2026, 11:59 PM</span>
                             </div>
                         </div>
-                        <div class="calendar-event-item">
+                        <div class="calendar-event-item" onclick="showToast('Event', 'Mid-Semester Break 10-14 August', '🏖️')">
                             <div class="event-color" style="background:#2E86AB;"></div>
                             <div class="event-info">
                                 <span class="event-title">Mid-Semester Break</span>
                                 <span class="event-date">10-14 August 2026</span>
                             </div>
                         </div>
-                        <div class="calendar-event-item">
+                        <div class="calendar-event-item" onclick="showToast('Event', 'MKT2014 Group Meeting 15 Aug', '📅')">
                             <div class="event-color" style="background:#6B4C3A;"></div>
                             <div class="event-info">
                                 <span class="event-title">MKT2014 Group Meeting</span>
@@ -643,18 +2524,17 @@
                 </div>
             </div>
 
-            <!-- ====== PROFILE PAGE ====== -->
+            <!-- ===== PROFILE ===== -->
             <div id="page-profile" class="page">
                 <div class="page-header">
                     <h2>Profile</h2>
                     <p>Manage your personal information and settings</p>
                 </div>
-
                 <div class="profile-container">
                     <div class="profile-card">
                         <div class="profile-avatar-section">
-                            <img src="https://ui-avatars.com/api/?name=Student+User&background=003366&color=fff&size=120" alt="User Avatar" class="profile-avatar" />
-                            <button class="btn btn-secondary btn-sm">Change Photo</button>
+                            <img src="https://ui-avatars.com/api/?name=Student+User&background=003366&color=fff&size=120" alt="Avatar" class="profile-avatar" />
+                            <button class="btn btn-secondary btn-sm" onclick="showToast('Profile', 'Change photo feature coming soon', '📸')">Change Photo</button>
                         </div>
                         <div class="profile-info">
                             <div class="profile-field">
@@ -679,12 +2559,9 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="profile-settings">
                         <div class="card">
-                            <div class="card-header">
-                                <h3>Settings</h3>
-                            </div>
+                            <div class="card-header"><h3>Settings</h3></div>
                             <div class="card-body">
                                 <div class="setting-item">
                                     <div class="setting-info">
@@ -692,7 +2569,7 @@
                                         <span class="setting-desc">Receive notifications via email</span>
                                     </div>
                                     <label class="toggle-switch">
-                                        <input type="checkbox" checked />
+                                        <input type="checkbox" checked onchange="toggleSetting(this, 'Email Notifications')" />
                                         <span class="toggle-slider"></span>
                                     </label>
                                 </div>
@@ -702,7 +2579,7 @@
                                         <span class="setting-desc">Receive browser notifications</span>
                                     </div>
                                     <label class="toggle-switch">
-                                        <input type="checkbox" checked />
+                                        <input type="checkbox" checked onchange="toggleSetting(this, 'Push Notifications')" />
                                         <span class="toggle-slider"></span>
                                     </label>
                                 </div>
@@ -712,7 +2589,7 @@
                                         <span class="setting-desc">Switch to dark theme</span>
                                     </div>
                                     <label class="toggle-switch">
-                                        <input type="checkbox" />
+                                        <input type="checkbox" onchange="toggleSetting(this, 'Dark Mode')" />
                                         <span class="toggle-slider"></span>
                                     </label>
                                 </div>
@@ -721,7 +2598,7 @@
                                         <span class="setting-label">Language</span>
                                         <span class="setting-desc">Select your preferred language</span>
                                     </div>
-                                    <select class="setting-select">
+                                    <select class="setting-select" onchange="showToast('Language', 'Language changed to ' + this.value, '🌍')">
                                         <option>English</option>
                                         <option>Bahasa Malaysia</option>
                                         <option>Chinese</option>
@@ -736,17 +2613,310 @@
         </section>
     </main>
 
-    <!-- ====== TOAST NOTIFICATION ====== -->
+    <!-- ===== TOAST ===== -->
     <div id="toast" class="toast">
-        <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="toast-icon success"><i class="fas fa-check-circle"></i></div>
         <div class="toast-content">
             <span class="toast-title">Success</span>
             <span class="toast-message">Action completed successfully</span>
         </div>
-        <button class="toast-close"><i class="fas fa-times"></i></button>
+        <button class="toast-close" onclick="hideToast()"><i class="fas fa-times"></i></button>
     </div>
 
-    <!-- ====== JAVASCRIPT ====== -->
-    <script src="js/script.js"></script>
+    <script>
+        // ============================================
+        // TOAST SYSTEM
+        // ============================================
+        let toastTimeout;
+
+        function showToast(title, message, icon = '✅') {
+            const toast = document.getElementById('toast');
+            const iconEl = toast.querySelector('.toast-icon');
+            const titleEl = toast.querySelector('.toast-title');
+            const msgEl = toast.querySelector('.toast-message');
+
+            iconEl.textContent = icon;
+            titleEl.textContent = title;
+            msgEl.textContent = message;
+
+            toast.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(hideToast, 4000);
+        }
+
+        function hideToast() {
+            document.getElementById('toast').classList.remove('show');
+        }
+
+        // ============================================
+        // DATE DISPLAY
+        // ============================================
+        function updateDate() {
+            const now = new Date();
+            const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', opts);
+        }
+        updateDate();
+
+        // ============================================
+        // SIDEBAR NAVIGATION
+        // ============================================
+        const navItems = document.querySelectorAll('.nav-item[data-page]');
+        const pages = document.querySelectorAll('.page');
+        const pageTitle = document.getElementById('pageTitle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const menuToggle = document.getElementById('menuToggle');
+
+        const titles = {
+            dashboard: 'Dashboard',
+            courses: 'My Courses',
+            notifications: 'Notifications',
+            messages: 'Messages',
+            calendar: 'Calendar',
+            profile: 'Profile'
+        };
+
+        function navigateTo(pageId) {
+            pages.forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + pageId).classList.add('active');
+
+            navItems.forEach(n => n.classList.remove('active'));
+            navItems.forEach(n => {
+                if (n.dataset.page === pageId) n.classList.add('active');
+            });
+
+            pageTitle.textContent = titles[pageId] || pageId;
+            closeSidebar();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                navigateTo(this.dataset.page);
+            });
+        });
+
+        document.querySelectorAll('[data-page]').forEach(el => {
+            el.addEventListener('click', function(e) {
+                const page = this.dataset.page;
+                if (page) { e.preventDefault();
+                    navigateTo(page); }
+            });
+        });
+
+        // ============================================
+        // SIDEBAR TOGGLE
+        // ============================================
+        function openSidebar() {
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+        });
+        overlay.addEventListener('click', closeSidebar);
+
+        // ============================================
+        // NOTIFICATION FILTER
+        // ============================================
+        function filterNotifications(filter, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.notification-item').forEach(item => {
+                if (filter === 'all') {
+                    item.style.display = 'flex';
+                } else if (filter === 'unread') {
+                    item.style.display = item.classList.contains('unread') ? 'flex' : 'none';
+                } else {
+                    item.style.display = item.dataset.type === filter ? 'flex' : 'none';
+                }
+            });
+            showToast('Filter', 'Showing: ' + filter, '🔍');
+        }
+
+        // ============================================
+        // DISMISS NOTIFICATION
+        // ============================================
+        function dismissNotification(btn) {
+            const item = btn.closest('.notification-item');
+            item.style.transition = 'all 0.3s ease';
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(40px)';
+            setTimeout(() => { item.style.display = 'none'; }, 300);
+            showToast('Dismissed', 'Notification removed', '🗑️');
+        }
+
+        // ============================================
+        // MESSAGES
+        // ============================================
+        function openConversation(sender, item) {
+            item.classList.remove('unread');
+            const view = document.getElementById('messageView');
+            view.classList.add('active');
+            view.innerHTML = `
+                <div class="message-conversation">
+                    <h3 style="margin-bottom:16px;">${sender}</h3>
+                    <div class="msg-bubble received">
+                        Hello! How can I help you today?
+                        <span class="msg-time">10:00 AM</span>
+                    </div>
+                    <div class="msg-bubble sent">
+                        I have a question about the assignment.
+                        <span class="msg-time">10:05 AM</span>
+                    </div>
+                    <div class="msg-bubble received">
+                        Sure, what would you like to know?
+                        <span class="msg-time">10:10 AM</span>
+                    </div>
+                    <div class="message-input-area">
+                        <input type="text" id="msgInput" placeholder="Type your message..." />
+                        <button class="btn btn-primary btn-sm" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            `;
+            showToast('Conversation', 'Opened with ' + sender, '💬');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('msgInput');
+            if (input && input.value.trim()) {
+                const convo = document.querySelector('.message-conversation');
+                const div = document.createElement('div');
+                div.className = 'msg-bubble sent';
+                div.innerHTML = input.value.trim() + `<span class="msg-time">Just now</span>`;
+                convo.insertBefore(div, convo.querySelector('.message-input-area'));
+                input.value = '';
+                showToast('Sent', 'Message sent successfully', '✉️');
+            }
+        }
+
+        // ============================================
+        // CALENDAR
+        // ============================================
+        let currentMonth = 7;
+        let currentYear = 2026;
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            const monthDisplay = document.getElementById('calendarMonth');
+            monthDisplay.textContent = monthNames[currentMonth] + ' ' + currentYear;
+
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            // Monday first (adjust)
+            let startOffset = firstDay === 0 ? 6 : firstDay - 1;
+
+            let html = `
+                <div class="calendar-weekday">Mon</div>
+                <div class="calendar-weekday">Tue</div>
+                <div class="calendar-weekday">Wed</div>
+                <div class="calendar-weekday">Thu</div>
+                <div class="calendar-weekday">Fri</div>
+                <div class="calendar-weekday">Sat</div>
+                <div class="calendar-weekday">Sun</div>
+            `;
+
+            for (let i = 0; i < startOffset; i++) {
+                html += `<div class="calendar-day empty"></div>`;
+            }
+
+            const today = new Date();
+            for (let d = 1; d <= daysInMonth; d++) {
+                const isToday = (d === today.getDate() && currentMonth === today.getMonth() && currentYear === today
+                .getFullYear());
+                const hasEvent = (d === 7 || d === 10 || d === 15 || d === 20);
+                html += `
+                    <div class="calendar-day ${isToday ? 'today' : ''} ${hasEvent ? 'has-event' : ''}" 
+                         onclick="showToast('Date', '${monthNames[currentMonth]} ${d}, ${currentYear}', '📅')">
+                        ${d}
+                    </div>
+                `;
+            }
+
+            grid.innerHTML = html;
+        }
+
+        function changeMonth(delta) {
+            currentMonth += delta;
+            if (currentMonth > 11) { currentMonth = 0;
+                currentYear++; }
+            if (currentMonth < 0) { currentMonth = 11;
+                currentYear--; }
+            renderCalendar();
+            showToast('Calendar', monthNames[currentMonth] + ' ' + currentYear, '📅');
+        }
+
+        renderCalendar();
+
+        // ============================================
+        // TOGGLE SETTINGS
+        // ============================================
+        function toggleSetting(input, label) {
+            const state = input.checked ? 'enabled' : 'disabled';
+            showToast('Setting', label + ' ' + state, input.checked ? '✅' : '❌');
+        }
+
+        // ============================================
+        // SEARCH
+        // ============================================
+        document.getElementById('searchInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && this.value.trim()) {
+                showToast('Search', 'Searching for: "' + this.value.trim() + '"', '🔍');
+                this.value = '';
+            }
+        });
+
+        // ============================================
+        // HEADER BUTTONS
+        // ============================================
+        document.getElementById('notifBtn').addEventListener('click', () => navigateTo('notifications'));
+        document.getElementById('msgBtn').addEventListener('click', () => navigateTo('messages'));
+
+        // ============================================
+        // LOGOUT
+        // ============================================
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            showToast('Logged Out', 'See you next time!', '👋');
+        });
+
+        // ============================================
+        // KEYBOARD SHORTCUTS
+        // ============================================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+            if (e.ctrlKey && e.key >= '1' && e.key <= '6') {
+                e.preventDefault();
+                const pages = ['dashboard', 'courses', 'notifications', 'messages', 'calendar', 'profile'];
+                if (pages[parseInt(e.key) - 1]) navigateTo(pages[parseInt(e.key) - 1]);
+            }
+        });
+
+        // ============================================
+        // WELCOME TOAST
+        // ============================================
+        setTimeout(() => {
+            showToast('Welcome!', 'Explore the redesigned eLearn interface', '🎓');
+        }, 600);
+
+        console.log('🎓 Sunway eLearn - Final Design Loaded!');
+        console.log('👥 Group: Joey, Malcolm, Nicholas');
+        console.log('📅 PRG3014 UI/UX Design and Development');
+    </script>
 </body>
 </html>
